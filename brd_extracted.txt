@@ -1,0 +1,285 @@
+
+PROHIT
+Daily Task
+Business Requirements Document (BRD)
+Generic Productivity Platform with Vertical Business Modules
+
+Prepared for: PROHIT CoreTech / Finnpulse Advisory
+Prepared by: Pratik Sathe
+Version 1.0 — August 2026
+
+
+1. Document Control
+Field
+Details
+Document Title
+PROHIT Daily Task — Business Requirements Document
+Version
+1.0
+Prepared By
+Pratik Sathe — Data Analytics Consultant, PROHIT CoreTech
+Date
+August 2026
+Status
+Draft — for internal planning and development scoping
+2. Executive Summary
+PROHIT Daily Task is a generic productivity and task-management platform, positioned similarly to TickTick, built to serve individuals, students, freelancers, and teams from launch. The platform is architected around a single reusable Core Engine so that, once validated with a general audience, vertical-specific business modules (CA Practice Management, Coaching Management, Clinic Management, Real Estate Management, Agency Management, and a Custom Business Workspace for any other business type) can be layered on top without rebuilding the core product.
+The product will be self-developed by the founder within a budget of ₹30,000–40,000 covering tools, infrastructure, and hosting costs, using an AI-assisted development workflow on a Next.js/Node/MongoDB stack. Monetization follows a feature-wise subscription model — Free, Pro, and Team tiers for the generic product, with vertical modules and an AI add-on sold as separate paid layers on top.
+Distinct branding (Charcoal Navy and Emerald Teal palette, and original feature nomenclature such as "Flow Board" and "Deep Work Sprint") has been deliberately chosen to avoid visual or naming overlap with TickTick and other market incumbents.
+3. Business Objectives
+Launch a low-cost, self-built MVP that validates a generic task-management product with real users before investing in vertical-specific development.
+Build a reusable Core Engine architecture so future vertical modules (CA, Coaching, Clinic, Real Estate, Agency, and others) can be added as configuration/data, not code rewrites.
+Establish a feature-wise, modular subscription model that scales revenue per workspace/user rather than relying on a single flat price.
+Capture a broad top-of-funnel user base — individuals, students, and small teams — to build brand recognition ahead of monetizing higher-value business verticals.
+Keep the vertical module list open-ended, avoiding a hardcoded set of business types, so new industries can be onboarded without re-architecture.
+Differentiate PROHIT's naming, visual design, and color palette clearly from TickTick and other direct competitors to reduce trade-dress/copyright risk and build independent brand identity.
+4. Target Users & Market Segments
+4.1 Primary Segments (Launch Phase)
+Individual professionals and freelancers managing personal task lists and schedules.
+College, Masters, and degree students — assignment/exam tracking, study-group coordination, focus sessions.
+Small teams needing shared task boards and basic collaboration (Team Workspace).
+4.2 Secondary Segments (Vertical Modules — Later Phases)
+CA / accounting firms — client compliance and task workflows.
+Coaching institutes — batch, session, and student management.
+Clinics — patient and appointment-linked task workflows.
+Real estate and agency businesses — project/lead-linked task workflows.
+Any other business type via the open-ended Custom Business Workspace module.
+5. Scope
+5.1 In Scope — Phase 1 (MVP)
+User authentication and Workspace creation (Personal / Team / Business types).
+Core Task Engine: create, edit, complete, subtasks, priority, due dates, tags.
+Lists / Projects with recurring task support.
+Reminders (email-based for V1).
+Calendar view — month and week.
+Flow Board — Kanban-style visual task board (To Do / In Progress / Done, customizable columns).
+Dashboard with completion %, overdue tasks, and basic filters.
+Subscription and billing integration (Razorpay Subscriptions) with Free, Pro, and Team tiers.
+Entitlement-based feature gating architecture (module/feature flags per workspace).
+Responsive Web App with PWA support (installable, offline-capable, home-screen icon).
+5.2 Out of Scope — Phase 1
+Native mobile applications (iOS/Android via React Native) — planned for a later phase once paid usage validates demand.
+Deep Work Sprint (Pomodoro-style focus timer) — planned for a fast-follow V1.1 release.
+AI Assistant features (voice-to-task, AI daily planning, AI summary) — to be released later as a separate paid add-on, not bundled into Pro.
+Vertical business modules (CA, Coaching, Clinic, Real Estate, Agency) — planned for later phases once the generic core is validated.
+WhatsApp integration, n8n-based automation workflows, and third-party calendar sync (Google/Outlook) — future phases.
+5.3 Future Phases (Indicative)
+Phase
+Scope
+Phase 1 — MVP
+Generic Core Engine, Web App + PWA, Free/Pro/Team subscription
+Phase 2 — Advanced Productivity
+Deep Work Sprint, AI Add-on, calendar sync, student discount pricing
+Phase 3 — Vertical Modules
+CA / Coaching / Clinic / Real Estate / Agency modules, Custom Business Workspace framework
+Phase 4 — Native Apps
+React Native mobile apps for iOS and Android, App Store / Play Store presence
+6. Functional Requirements
+6.1 Core Engine
+The Core Engine is the shared foundation reused across every workspace type and, later, every vertical module.
+Module
+Description
+Task
+Core task object — title, description, priority, due date, status, subtasks
+Project / List
+Grouping of related tasks (a "course", a "client", a "project")
+User
+Account, profile, authentication
+Team
+Group of users collaborating within a workspace
+Calendar
+Date-based visualization of tasks
+Reminder
+Notification scheduling tied to a task
+Notification
+Delivery of reminders/alerts to the user
+Attachment
+Files/images linked to a task
+Comment
+Threaded discussion on a task
+Billing
+Subscription, plan, and payment state
+6.2 Workspace Types
+Personal Workspace — single-user, individual/student use case.
+Team Workspace — shared workspace for small collaborative teams, up to defined member caps per plan.
+Business Workspace — foundation layer on which paid Vertical Modules attach.
+6.3 Flow Board (Kanban)
+A visual, drag-and-drop task board with customizable columns (default: To Do / In Progress / Done). Functionally equivalent to industry-standard Kanban boards, under PROHIT's own naming to maintain distinct brand identity.
+6.4 Vertical Modules — Add-on Layer
+Vertical modules extend the Core Engine with industry-specific metadata, terminology, and workflow rules, without modifying core code. New verticals are added as data-driven module definitions (module ID, field schema, task/client label overrides, pricing) rather than hardcoded application logic.
+Module
+"Task" becomes
+"Client" becomes
+CA Practice Management
+GST/ITR/ROC filing, Audit assignment
+Client (company)
+Coaching Management
+Batch/session prep
+Student
+Clinic Management
+Patient follow-up / appointment
+Patient
+Real Estate Management
+Site visit / documentation task
+Buyer / Project
+Agency Management
+Vendor / campaign coordination
+Client / Account
+Custom Business Workspace
+User-defined
+User-defined
+6.5 Subscription & Billing
+Integration with Razorpay Subscriptions for plan purchase, renewal, and cancellation.
+Webhook-driven entitlement updates — payment success, renewal, and failure events update each workspace's entitlement cache.
+Entitlement flags determine which features/modules are unlocked per workspace at request time.
+Student discount path on the Pro plan via college email verification.
+7. Non-Functional Requirements
+Category
+Requirement
+Performance
+Dashboard and task list views should load within 2 seconds under normal usage
+Scalability
+Entitlement and workspace data model must support adding new verticals without schema-breaking changes
+Responsiveness
+Web app must render correctly across desktop, tablet, and mobile browser widths
+Offline capability
+PWA should cache the current task list for basic offline viewing
+Data integrity
+Subscription/entitlement writes must be idempotent against duplicate Razorpay webhook deliveries
+Security
+Authentication tokens, payment data, and personal data handled per standard SaaS security practice; no card data stored directly
+Branding consistency
+All UI, naming, and color usage must follow the approved PROHIT design guidelines (Section 10)
+8. Technical Architecture
+8.1 Technology Stack
+Layer
+Technology
+Rationale
+Frontend + API
+Next.js (TypeScript)
+Single codebase; founder's existing proven stack
+Database
+MongoDB + Mongoose
+Founder's existing stack across other PROHIT CoreTech projects
+Authentication
+NextAuth / Clerk
+Supports multi-tenant workspace login out of the box
+Billing
+Razorpay Subscriptions
+India-first, handles recurring billing and plan changes
+Hosting
+Railway / Render (app + DB) + Vercel (frontend)
+Low-cost, fits ₹30-40k self-build budget
+8.2 Data & Entitlement Model
+Subscription and entitlement data is kept in dedicated collections separate from core Workspace data, to avoid write contention from frequent Razorpay webhook updates against a document also read on every request.
+workspaces — workspace identity, owner, and type (personal / team / business).
+subscriptions — plan, status, active modules, renewal date, keyed by workspaceId.
+entitlements_cache — denormalized feature flags per workspace for fast read access on every request.
+modules — data-driven definitions of each vertical module (field schema, task/client label overrides, pricing), enabling new verticals to be added without core code changes.
+8.3 System Architecture Overview
+The system follows a layered structure: a shared Core Engine (Task, Project, User, Team, Calendar, Reminder, Notification, Attachment, Comment, Billing) sits beneath three Workspace types (Personal, Team, Business). Business Workspaces can attach one or more Vertical Modules as paid add-ons, including an open-ended Custom Business Workspace for industries not yet formally modeled. A parallel Subscription & Entitlement Flow governs plan selection, payment processing via Razorpay, webhook-driven entitlement updates, and the resulting feature unlocks in the application.
+9. Subscription & Pricing Model
+9.1 Core Plans
+Tier
+Price
+Includes
+Free
+₹0
+5 lists, 50 tasks/list, 1 reminder/task, month-view calendar only, no attachments
+Pro (Individual)
+₹999/year
+Unlimited lists/tasks, multiple reminders, week/day calendar views, Flow Board, unlimited attachments, calendar sync
+Pro (Student)
+₹499/year
+Same as Pro, discounted via verified college email
+Team
+₹149/user/month
+Everything in Pro + shared workspace, up to 10 members, team dashboard
+9.2 Add-on Layers (Sold Separately, Not Bundled)
+Add-on
+Price
+Notes
+AI Add-on
+₹99/user/month
+Voice-to-task, AI planning — released after V1
+Vertical Module (CA / Coaching / Clinic / etc.)
+₹199/user/month
+Requires a Team-tier workspace as base
+This structure mirrors current market practice: Todoist, ClickUp, and TickTick all gate paid tiers primarily on volume (projects, tasks, storage) and defer AI-specific features to a separate add-on charge rather than bundling them into the base paid tier.
+10. Branding & Design Guidelines
+To avoid visual and naming overlap with TickTick and other competitors, PROHIT uses an original color palette and original feature nomenclature.
+10.1 Color Palette
+Role
+Color
+Hex
+Primary
+Charcoal Navy
+#1B2A4A
+Accent
+Emerald Teal
+#2A9D8F
+Secondary Layer
+Slate Blue
+#5C7A99
+Module / Add-on Layer
+Warm Sand
+#D4A373
+Background
+Off-white
+#F7F7F5
+10.2 Feature Nomenclature
+Generic / Industry Term
+PROHIT Name
+Kanban View
+Flow Board
+Today Dashboard
+My Day
+Focus / Pomodoro Timer
+Deep Work Sprint
+Constant Reminder
+Sticky Alert
+Calendar Subscription
+Calendar Bridge
+Smart Lists
+Views
+AI Summary
+Quick Recap (AI)
+Habit Tracker (future)
+Streaks
+11. Platform Strategy
+Phase 1 ships as a responsive Next.js Web App with Progressive Web App (PWA) support — installable to a mobile home screen, with basic offline caching — rather than a native mobile app.
+Business-vertical users (CA firm staff, clinic front-desk, coaching admin) primarily work from desktop during office hours — a web-first approach serves this segment directly.
+Individual and student users primarily use mobile — covered adequately by the installable PWA experience.
+A native React Native app is deferred to Phase 4, once paying users validate which mobile-specific features are actually needed, avoiding premature app-store development cost and review delays.
+12. Development Budget & Timeline
+Development is self-executed by the founder using an AI-assisted coding workflow. The ₹30,000–40,000 budget covers tools, hosting/infrastructure, domain, and third-party service costs — not third-party development labor.
+Item
+Estimated Cost
+Hosting (Railway/Render + Vercel) — first year
+Included within budget
+Domain registration
+Included within budget
+Razorpay integration / transaction setup
+Included within budget
+Design & AI development tools
+Included within budget
+Total
+₹30,000 – ₹40,000
+Indicative V1 (MVP core, excluding Deep Work Sprint and AI Add-on) build timeline: 6–8 weeks, solo development with AI-assisted tooling.
+13. Risks & Mitigations
+Risk
+Mitigation
+Brand/trade-dress similarity to TickTick or other incumbents
+Distinct color palette (Charcoal Navy/Emerald Teal) and original feature naming (Flow Board, Deep Work Sprint, etc.) adopted from the outset
+Solo-founder development bandwidth
+Scope tightly limited for V1; Pomodoro/AI features deferred to fast-follow releases rather than blocking launch
+Generic productivity market is highly saturated
+Vertical module strategy (CA, Coaching, Clinic, etc.) provides a differentiated, higher-margin path beyond generic competition
+Low initial monetization from student segment
+Student tier priced to build volume and brand loyalty; monetization expected to convert later via professional/vertical tiers
+Entitlement/billing data inconsistency from webhook failures
+Idempotent webhook handling and a dedicated entitlements cache, decoupled from core workspace data
+14. Assumptions
+The founder will personally handle end-to-end development using the Next.js/MongoDB stack already used across other PROHIT CoreTech projects.
+No dedicated development team or agency is engaged for Phase 1.
+Vertical module pilot customers (CA firms, coaching centers, etc.) will be identified and onboarded after the generic MVP is live.
+Pricing figures are indicative and subject to revision based on market testing and Razorpay transaction cost structures.

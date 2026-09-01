@@ -1,0 +1,12 @@
+{
+  "name": "PROHIT Daily Task",
+  "short_name": "PROHIT",
+  "description": "A generic productivity platform for individuals, students, and teams.",
+  "start_url": "/my-day",
+  "display": "standalone",
+  "background_color": "#F7F7F5",
+  "theme_color": "#1B2A4A",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

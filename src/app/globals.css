@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  /* PROHIT brand palette — BRD §10.1 */
+  --color-primary: #1b2a4a; /* Charcoal Navy */
+  --color-primary-hover: #24365e;
+  --color-accent: #2a9d8f; /* Emerald Teal */
+  --color-accent-hover: #248b7e;
+  --color-secondary: #5c7a99; /* Slate Blue */
+  --color-module: #d4a373; /* Warm Sand */
+  --color-background: #f7f7f5; /* Off-white */
+
+  --color-surface: #ffffff;
+  --color-border: #e5e5e0;
+  --color-foreground: #1b2a4a;
+  --color-muted: #6b7280;
+
+  --color-danger: #c0392b;
+  --color-warning: #d4a373;
+  --color-success: #2a9d8f;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-secondary: var(--color-secondary);
+  --color-module: var(--color-module);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+  --color-danger: var(--color-danger);
+  --color-warning: var(--color-warning);
+  --color-success: var(--color-success);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
