@@ -12,6 +12,7 @@ import { QuickAddTask } from "@/components/tasks/QuickAddTask";
 import { TaskDetailPanel } from "@/components/tasks/TaskDetailPanel";
 import { UpgradeGate } from "@/components/billing/UpgradeGate";
 import { PRIORITY } from "@/lib/constants";
+import { computeDragTarget } from "./computeDragTarget";
 import type { BoardColumn, TaskItem } from "@/types/api";
 
 function BoardCard({ task, onOpen }: { task: TaskItem; onOpen: () => void }) {
@@ -45,18 +46,10 @@ function FlowBoardContent() {
     const { destination, draggableId } = result;
     if (!destination || !data) return;
 
-    const destColumn = data.columns.find((c) => c.id === destination.droppableId);
-    if (!destColumn) return;
+    const target = computeDragTarget(data.columns, draggableId, destination);
+    if (!target) return;
 
-    const destTasks = destColumn.tasks.filter((t) => t.id !== draggableId);
-    const beforeTaskId = destTasks[destination.index - 1]?.id ?? null;
-    const afterTaskId = destTasks[destination.index]?.id ?? null;
-
-    await api.patch(`/api/v1/tasks/${draggableId}/board-position`, {
-      boardColumnId: destination.droppableId,
-      beforeTaskId,
-      afterTaskId,
-    });
+    await api.patch(`/api/v1/tasks/${draggableId}/board-position`, target);
     await mutate();
   }
 
