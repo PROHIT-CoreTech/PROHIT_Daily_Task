@@ -61,7 +61,7 @@ function featureUpgradeMessage(feature: keyof FeatureFlags): string {
   const messages: Record<keyof FeatureFlags, string> = {
     flow_board: "Flow Board is available on Pro.",
     calendar_week_view: "Week and day calendar views are available on Pro.",
-    calendar_bridge: "Calendar Bridge is coming in a future release.",
+    calendar_bridge: "Calendar Bridge is available on Pro and Team.",
     unlimited_attachments: "Attachments are available on Pro.",
     multiple_reminders: "Multiple Sticky Alerts per task are available on Pro.",
     deep_work: "Deep Work Sprint is coming soon.",

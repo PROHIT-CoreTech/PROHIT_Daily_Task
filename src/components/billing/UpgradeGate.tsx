@@ -16,7 +16,7 @@ const FEATURE_COPY: Record<keyof FeatureFlags, { headline: string; body: string 
     headline: "Week view is a Pro feature",
     body: "See your week at a glance instead of the whole month.",
   },
-  calendar_bridge: { headline: "Calendar Bridge is coming soon", body: "External calendar sync arrives in a future release." },
+  calendar_bridge: { headline: "Calendar Bridge is a Pro feature", body: "Sync task due dates to Google Calendar automatically on Pro or Team." },
   unlimited_attachments: { headline: "Attachments are a Pro feature", body: "Attach files to any task on Pro or Team." },
   multiple_reminders: { headline: "Multiple Sticky Alerts are a Pro feature", body: "Set more than one reminder per task on Pro or Team." },
   deep_work: { headline: "Deep Work Sprint is a Pro feature", body: "Run focused, distraction-free timer sessions on Pro or Team." },

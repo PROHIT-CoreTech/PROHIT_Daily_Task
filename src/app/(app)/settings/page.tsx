@@ -1,19 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useWorkspace } from "@/context/WorkspaceContext";
 import { TopNav } from "@/components/layout/TopNav";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input, Label } from "@/components/ui/Input";
 import { Avatar } from "@/components/ui/Avatar";
+import { CalendarBridgeCard } from "@/components/settings/CalendarBridgeCard";
 import { api } from "@/lib/api-client";
 
-export default function SettingsPage() {
+const CALENDAR_ERROR_COPY: Record<string, string> = {
+  denied: "Google Calendar connection was cancelled.",
+  invalid_request: "That connection link was invalid. Try connecting again.",
+  state_mismatch: "That connection link expired. Try connecting again.",
+  connect_failed: "Could not connect Google Calendar. Try again in a moment.",
+};
+
+function SettingsPageContent() {
   const { activeWorkspace, refresh } = useWorkspace();
   const [name, setName] = useState(activeWorkspace?.name ?? "");
   const [saving, setSaving] = useState(false);
+  const searchParams = useSearchParams();
+  const calendarConnected = searchParams.get("calendar") === "connected";
+  const calendarError = searchParams.get("calendar_error");
 
   if (!activeWorkspace) return null;
 
@@ -31,6 +43,15 @@ export default function SettingsPage() {
     <div className="flex-1 flex flex-col min-w-0">
       <TopNav title="Settings" />
       <div className="flex-1 overflow-y-auto p-6 space-y-6 max-w-2xl">
+        {calendarConnected && (
+          <div className="rounded-lg bg-accent/10 text-accent text-sm px-4 py-2">Google Calendar connected.</div>
+        )}
+        {calendarError && (
+          <div className="rounded-lg bg-danger/10 text-danger text-sm px-4 py-2">
+            {CALENDAR_ERROR_COPY[calendarError] ?? CALENDAR_ERROR_COPY.connect_failed}
+          </div>
+        )}
+
         <Card className="p-5 space-y-4">
           <h3 className="text-sm font-semibold text-primary">Workspace</h3>
           <div>
@@ -57,9 +78,19 @@ export default function SettingsPage() {
           <p className="text-sm text-muted capitalize">Current plan: {activeWorkspace.entitlements.plan.replace("_", " ")}</p>
         </Card>
 
+        <CalendarBridgeCard workspaceId={activeWorkspace.id} />
+
         {activeWorkspace.type !== "personal" && <MembersCard workspaceId={activeWorkspace.id} />}
       </div>
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense>
+      <SettingsPageContent />
+    </Suspense>
   );
 }
 
