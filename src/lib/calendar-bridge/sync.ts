@@ -38,8 +38,8 @@ export async function syncTaskToCalendar(taskId: string): Promise<void> {
 
     const eventId = await upsertTaskEvent(
       connection,
-      { title: task.title, description: task.description, dueDate: task.dueDate! },
-      task.googleCalendarEventId
+      { title: task.title, description: task.description ?? undefined, dueDate: task.dueDate! },
+      task.googleCalendarEventId ?? undefined
     );
 
     task.googleCalendarEventId = eventId;

@@ -27,6 +27,7 @@ export function TaskDetailPanel({
   const [newComment, setNewComment] = useState("");
   const [reminderTime, setReminderTime] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   if (!task) {
     return (
@@ -51,11 +52,15 @@ export function TaskDetailPanel({
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setUploadError(null);
     try {
       const result = await requestAttachmentUpload(file.name, file.type || "application/octet-stream", file.size);
       if (result?.uploadUrl) {
-        await fetch(result.uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        const res = await fetch(result.uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        if (!res.ok) throw new Error(`Upload failed (${res.status})`);
       }
+    } catch {
+      setUploadError("Couldn't upload the file — storage isn't configured yet or the connection failed.");
     } finally {
       setUploading(false);
       e.target.value = "";
@@ -169,10 +174,13 @@ export function TaskDetailPanel({
             ))}
           </div>
           {canAttach ? (
-            <label className="text-xs text-accent font-medium cursor-pointer">
-              {uploading ? "Uploading…" : "+ Add attachment"}
-              <input type="file" className="hidden" onChange={onFileSelected} disabled={uploading} />
-            </label>
+            <>
+              <label className="text-xs text-accent font-medium cursor-pointer">
+                {uploading ? "Uploading…" : "+ Add attachment"}
+                <input type="file" className="hidden" onChange={onFileSelected} disabled={uploading} />
+              </label>
+              {uploadError && <p className="text-xs text-danger mt-1">{uploadError}</p>}
+            </>
           ) : (
             <Link href="/settings/billing" className="flex items-center gap-1 text-xs text-module">
               <Lock size={12} /> Upgrade to add attachments

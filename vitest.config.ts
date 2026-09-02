@@ -24,6 +24,14 @@ export default defineConfig({
       // that imports it (even indirectly) needs a non-empty placeholder.
       RAZORPAY_KEY_ID: "rzp_test_placeholder",
       RAZORPAY_KEY_SECRET: "test-key-secret",
+      REMINDER_DISPATCH_SECRET: "test-reminder-secret",
+      // getSignedUrl (src/lib/r2.ts) is a pure local SigV4 computation, no
+      // network call — these just need to be non-empty.
+      R2_ACCOUNT_ID: "test-account",
+      R2_ACCESS_KEY_ID: "test-access-key",
+      R2_SECRET_ACCESS_KEY: "test-secret-key",
+      R2_BUCKET_NAME: "test-bucket",
+      R2_PUBLIC_URL: "https://test.r2.dev",
     },
   },
 });
