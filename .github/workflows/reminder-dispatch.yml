@@ -1,0 +1,20 @@
+name: Reminder dispatch
+
+# Fires /api/v1/reminders/dispatch every 5 minutes so Sticky Alerts actually
+# send — the route itself has no built-in scheduler (see README#deployment).
+# GitHub's schedule trigger only runs on the default branch and isn't
+# guaranteed to the minute under load, which matches this endpoint's own
+# "send once, not six times" idempotency (dedupes on `reminders.sentAt`).
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST /api/v1/reminders/dispatch
+        run: |
+          curl --fail-with-body -sS -X POST "${{ secrets.REMINDER_DISPATCH_URL }}" \
+            -H "Authorization: Bearer ${{ secrets.REMINDER_DISPATCH_SECRET }}"
