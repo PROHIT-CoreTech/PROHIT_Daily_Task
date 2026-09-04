@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/*
+ * BRD §10.1 palette. Tokens are named by role, not color, so components
+ * reference `bg-primary` / `text-muted-foreground` etc. and the palette can
+ * change without touching component code.
+ */
+@theme {
+  --color-background: #f7f7f5;
+  --color-foreground: #1b2a4a;
+
+  --color-primary: #1b2a4a; /* Charcoal Navy */
+  --color-primary-foreground: #f7f7f5;
+
+  --color-accent: #2a9d8f; /* Emerald Teal */
+  --color-accent-foreground: #f7f7f5;
+
+  --color-secondary: #5c7a99; /* Slate Blue */
+  --color-secondary-foreground: #f7f7f5;
+
+  --color-module: #d4a373; /* Warm Sand — module/add-on layer */
+  --color-module-foreground: #1b2a4a;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #1b2a4a;
+
+  --color-muted: #eceeec;
+  --color-muted-foreground: #5c7a99;
+
+  --color-border: #dfe2e6;
+  --color-ring: #2a9d8f;
+
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #f7f7f5;
+
+  --radius: 0.625rem;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
